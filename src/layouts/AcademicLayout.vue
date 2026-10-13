@@ -11,9 +11,6 @@
         <h3 id="about" class="label">About</h3>
         <p v-for="(para, i) in bio" :key="i">{{ para }}</p>
 
-        <h3 id="cv" class="label">CV</h3>
-        <p><a :href="profile.cv">{{ profile.cvLabel }}</a></p>
-
         <h3 id="job-market-paper" class="label">Job Market Paper</h3>
         <p class="entry-title">
           <a :href="jobMarketPaper.url" target="_blank" rel="noopener">{{ jobMarketPaper.title }}</a>
@@ -30,19 +27,6 @@
             <span class="meta">Last updated on {{ paper.lastUpdated }}.</span>
           </li>
         </ol>
-
-        <h3 id="blog" class="label">Blog</h3>
-        <p>{{ blog.intro }}</p>
-
-        <h3 id="contact" class="label">Contact</h3>
-        <ul class="contact">
-          <li>Email: <a :href="`mailto:${profile.email}`">{{ profile.email }}</a></li>
-          <li>Google Scholar: <a :href="profile.scholar">profile</a></li>
-          <li>LinkedIn: <a :href="profile.linkedin">profile</a></li>
-        </ul>
-
-        <h3 id="visitors" class="label">Visitors</h3>
-        <VisitorMap />
 
         <h3 id="rabbit" class="label">My Rabbit</h3>
         <p>{{ rabbit.prompt }}</p>
@@ -81,20 +65,16 @@
         <img :src="profile.photo" :alt="profile.name" />
         <ProfileLinks class="sidenav-icons" />
         <a href="#about">About</a>
-        <a href="#cv">CV</a>
         <a href="#job-market-paper">Job Market Paper</a>
         <a v-if="workingPapers.length" href="#working-papers">Working Papers</a>
-        <a href="#blog">Blog</a>
-        <a href="#contact">Contact</a>
       </aside>
     </div>
   </div>
 </template>
 
 <script setup>
-import { profile, bio, jobMarketPaper, workingPapers, blog, rabbit } from '@/content'
+import { profile, bio, jobMarketPaper, workingPapers, rabbit } from '@/content'
 import { useRabbitVotes } from '@/composables/useRabbitVotes'
-import VisitorMap from '@/components/VisitorMap.vue'
 import ProfileLinks from '@/components/ProfileLinks.vue'
 
 const {
@@ -187,14 +167,12 @@ a:hover {
   color: #888;
 }
 
-.papers,
-.contact {
+.papers {
   margin: 0 0 0.75rem;
   padding-left: 1.2rem;
 }
 
-.papers li,
-.contact li {
+.papers li {
   margin: 0.5rem 0;
   line-height: 1.6;
 }

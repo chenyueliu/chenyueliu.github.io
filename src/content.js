@@ -5,7 +5,7 @@ import rabbitRectangle from '@/assets/rabbit_rectangle.png'
 
 export const profile = {
   name: 'Chenyue Liu',
-  title: 'PhD Candidate in Economics',
+  title: 'Ph.D Candidate in Economics',
   affiliation: 'University of Toronto',
   photo: profilePhoto,
   email: 'chenyue.liu@mail.utoronto.ca',
@@ -15,11 +15,8 @@ export const profile = {
   cvLabel: 'Download my curriculum vitae (placeholder link).',
 }
 
-// DRAFT — written from the job market paper's abstract. Chenyue should rewrite
-// this in her own voice before the site is shared.
 export const bio = [
-  'I am a PhD candidate in the Department of Economics at the University of Toronto. My research is in econometrics, where I work on the identification of dynamic treatment effects — how to credibly measure the causal effect of the past on present outcomes when those effects unfold over time.',
-  'My job market paper develops a unified framework for dynamic treatment effects, extending the dynamic potential outcome model. It introduces a graphical representation and an accompanying algorithm that make the framework computationally tractable beyond binary variables. I apply it to the Survey of Income and Program Participation to study the long-term scarring effect of unemployment.',
+  'Welcome! I am a Ph.D candidate in the Department of Economics at the University of Toronto. I mainly do research in econometrics with a focus on treatment effects and nonparametric identification, and topics in labor economics.',
 ]
 
 export const jobMarketPaper = {
@@ -27,8 +24,7 @@ export const jobMarketPaper = {
   url: 'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6517978',
   meta: 'Chenyue Liu. 71 pages. Available at SSRN.',
   abstract: [
-    'This paper proposes a unified framework to study different types of dynamic treatment effects (DTE), extending the dynamic potential outcome (DPO) framework developed by Torgovitsky (2019). The DPO framework is used to study the causal effect of the immediate preceding past on the present in his paper. In this paper, I first show that DTE such as the causal effect of the distant past on the present can be non-parametrically identified in a DPO framework which does not necessarily assume that the distant past enters the function of the present potential response.',
-    'I then develop an algorithm leveraging a novel graphical representation of the DPO model. This graph-based algorithm provides a computationally tractable means of scaling the DPO framework beyond binary variables to multi-valued variables, circumventing the curse of dimensionality inherent in dynamic treatment effect studies. An application to the 2008 Survey of Income and Program Participation (SIPP) sheds further light on the long-term scarring effect of unemployment.',
+    'This paper proposes a unified framework to study different types of dynamic treatment effects (DTE), extending the dynamic potential outcome (DPO) framework developed by Torgovitsky (2019). The DPO framework is used to study the causal effect of the immediate preceding past on the present in his paper. In this paper, I first show that DTE such as the causal effect of the distant past on the present can be non-parametrically identified in a DPO framework which does not necessarily assume that the distant past enters the function of the present potential response. I then develop an algorithm leveraging a novel graphical representation of the DPO model. This graph-based algorithm provides a computationally tractable means of scaling the DPO framework beyond binary variables to multi-valued variables, circumventing the curse of dimensionality inherent in dynamic treatment effect studies. An application to the 2008 Survey of Income and Program Participation (SIPP) sheds further light on the long-term scarring effect of unemployment.',
   ],
   lastUpdated: 'September 25, 2026',
 }

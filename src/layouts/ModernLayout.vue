@@ -37,10 +37,6 @@
           <div class="about-right">
             <h2 class="section-heading">Biography</h2>
             <p v-for="(para, i) in bio" :key="i">{{ para }}</p>
-            <p class="cv-link-row">
-              <span class="cv-icon">📄</span>
-              <a id="cv" :href="profile.cv" class="cv-link">{{ profile.cvLabel }}</a>
-            </p>
           </div>
         </div>
       </section>
@@ -71,18 +67,6 @@
           <p class="paper-entry__meta">{{ paper.meta }}</p>
           <p class="paper-entry__update">Last updated on {{ paper.lastUpdated }}.</p>
         </article>
-      </section>
-
-      <!-- Simple blog placeholder -->
-      <section id="blog" class="section">
-        <h2 class="section-heading">Blog</h2>
-        <p>{{ blog.intro }}</p>
-      </section>
-
-      <!-- Visitors section -->
-      <section id="visitors" class="section">
-        <h2 class="section-heading">Visitors</h2>
-        <VisitorMap />
       </section>
 
       <!-- Rabbit Section -->
@@ -135,9 +119,8 @@
 </template>
 
 <script setup>
-import { profile, bio, jobMarketPaper, workingPapers, blog, rabbit, navLinks } from '@/content'
+import { profile, bio, jobMarketPaper, workingPapers, rabbit, navLinks } from '@/content'
 import { useRabbitVotes } from '@/composables/useRabbitVotes'
-import VisitorMap from '@/components/VisitorMap.vue'
 import ProfileLinks from '@/components/ProfileLinks.vue'
 
 const {
@@ -291,26 +274,6 @@ const {
   margin: 0 0 0.75rem;
   line-height: 1.7;
   color: #374151;
-}
-
-.cv-link-row {
-  margin-top: 0.8rem;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.cv-icon {
-  font-size: 1rem;
-}
-
-.cv-link {
-  color: #1f4f7b;
-  text-decoration: none;
-}
-
-.cv-link:hover {
-  text-decoration: underline;
 }
 
 /* Two-column sections (Job Market Paper) */
