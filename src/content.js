@@ -1,4 +1,4 @@
-import profilePhoto from '@/assets/profile-4.jpg'
+import profilePhoto from '@/assets/profile-1.jpg'
 import rabbitOval from '@/assets/rabbit_oval.png'
 import rabbitHexagon from '@/assets/rabbit_hexagon.png'
 import rabbitRectangle from '@/assets/rabbit_rectangle.png'
@@ -8,7 +8,8 @@ export const profile = {
   title: 'Ph.D Candidate in Economics',
   affiliation: 'University of Toronto',
   photo: profilePhoto,
-  email: 'chenyue.liu@mail.utoronto.ca',
+  // Written out instead of a mailto link so scrapers can't harvest it
+  email: 'chenyue [d o t] liu [a t] mail [d o t] utoronto [d o t] ca',
   scholar: 'https://scholar.google.com/citations?user=k_pi_QMAAAAJ&hl=en',
   linkedin: 'https://www.linkedin.com/in/chenyuel/',
   cv: '#',
@@ -29,9 +30,13 @@ export const jobMarketPaper = {
   lastUpdated: 'September 25, 2026',
 }
 
-// TODO: add real working papers; the placeholder entries were removed so nothing
-// invented appears on the live site.
+// Each entry: { title, url, meta, lastUpdated }. While empty, the section shows
+// "Coming soon."
 export const workingPapers = []
+
+// Each entry: { course, role, term }, e.g.
+// { course: 'ECO 101: Principles of Microeconomics', role: 'Teaching Assistant', term: 'Fall 2025' }
+export const teaching = []
 
 export const blog = {
   intro:
@@ -50,5 +55,6 @@ export const rabbit = {
 export const navLinks = [
   { href: '#about', label: 'Home' },
   { href: '#job-market-paper', label: 'Job Market Paper' },
-  ...(workingPapers.length ? [{ href: '#working-papers', label: 'Working Papers' }] : []),
+  { href: '#working-papers', label: 'Working Papers' },
+  { href: '#teaching', label: 'Teaching' },
 ]

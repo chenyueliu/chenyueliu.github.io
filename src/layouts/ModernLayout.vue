@@ -57,7 +57,7 @@
       </section>
 
       <!-- Working Papers section -->
-      <section v-if="workingPapers.length" id="working-papers" class="section">
+      <section id="working-papers" class="section">
         <h2 class="section-heading">Working Papers</h2>
 
         <article v-for="paper in workingPapers" :key="paper.title" class="paper-entry">
@@ -67,6 +67,18 @@
           <p class="paper-entry__meta">{{ paper.meta }}</p>
           <p class="paper-entry__update">Last updated on {{ paper.lastUpdated }}.</p>
         </article>
+        <p v-if="!workingPapers.length" class="paper-entry__meta">Coming soon.</p>
+      </section>
+
+      <!-- Teaching section -->
+      <section id="teaching" class="section">
+        <h2 class="section-heading">Teaching</h2>
+
+        <article v-for="course in teaching" :key="course.course + course.term" class="paper-entry">
+          <h3 class="paper-entry__title">{{ course.course }}</h3>
+          <p class="paper-entry__meta">{{ course.role }}, {{ course.term }}</p>
+        </article>
+        <p v-if="!teaching.length" class="paper-entry__meta">Coming soon.</p>
       </section>
 
       <!-- Rabbit Section -->
@@ -119,7 +131,7 @@
 </template>
 
 <script setup>
-import { profile, bio, jobMarketPaper, workingPapers, rabbit, navLinks } from '@/content'
+import { profile, bio, jobMarketPaper, workingPapers, teaching, rabbit, navLinks } from '@/content'
 import { useRabbitVotes } from '@/composables/useRabbitVotes'
 import ProfileLinks from '@/components/ProfileLinks.vue'
 
@@ -140,16 +152,25 @@ const {
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-  sans-serif;
+  --text-size: 17px; /* every font size below scales from this */
+  font-family: 'Lora', Georgia, serif;
+  font-size: var(--text-size);
   background: #f5f5f5;
   color: #1f2933;
+}
+
+/* Montserrat for the bar, name block, headings and buttons; Lora for reading text */
+.top-nav,
+.about-name-block,
+.section-heading,
+button {
+  font-family: 'Montserrat', system-ui, sans-serif;
 }
 
 /* Top navigation bar, similar spirit to the reference site */
 
 .top-nav {
-  background: #1f4f7b; /* deep blue */
+  background: #1f5a5a; /* pine teal */
   color: #ffffff;
   padding: 0.75rem 0;
 }
@@ -164,7 +185,7 @@ const {
 }
 
 .brand-name {
-  font-size: 1.3rem;
+  font-size: calc(1.3 * var(--text-size));
   font-weight: 600;
   color: #ffffff;
   text-decoration: none;
@@ -174,7 +195,7 @@ const {
   display: flex;
   flex-wrap: wrap;
   gap: 1.25rem;
-  font-size: 0.95rem;
+  font-size: calc(0.95 * var(--text-size));
   margin-right: 150px; /* clears the fixed style switcher */
 }
 
@@ -209,7 +230,7 @@ const {
 
 .section-heading {
   margin: 0 0 1.1rem;
-  font-size: 1.5rem;
+  font-size: calc(1.5 * var(--text-size));
   font-weight: 600;
 }
 
@@ -249,25 +270,25 @@ const {
 
 .about-name {
   margin: 0;
-  font-size: 1.6rem;
+  font-size: calc(1.6 * var(--text-size));
   font-weight: 600;
 }
 
 .about-title {
   margin: 0.35rem 0 0.15rem;
-  font-size: 0.95rem;
+  font-size: calc(0.95 * var(--text-size));
   color: #4b5563;
 }
 
 .about-affiliation {
   margin: 0;
-  font-size: 0.95rem;
-  color: #1f4f7b;
+  font-size: calc(0.95 * var(--text-size));
+  color: #1f5a5a;
 }
 
 .about-icons {
   margin-top: 0.9rem;
-  color: #1f4f7b;
+  color: #1f5a5a;
 }
 
 .about-right p {
@@ -293,7 +314,7 @@ const {
 }
 
 .section-main-col {
-  font-size: 0.98rem;
+  font-size: calc(0.98 * var(--text-size));
   color: #374151;
 }
 
@@ -304,12 +325,12 @@ const {
 
 .paper-title {
   margin: 0 0 0.4rem;
-  font-size: 1.2rem;
+  font-size: calc(1.2 * var(--text-size));
   font-weight: 600;
 }
 
 .paper-title a {
-  color: #1f4f7b;
+  color: #1f5a5a;
   text-decoration: none;
 }
 
@@ -319,13 +340,13 @@ const {
 
 .paper-meta {
   margin: 0 0 0.75rem;
-  font-size: 0.9rem;
+  font-size: calc(0.9 * var(--text-size));
   color: #6b7280;
 }
 
 .last-updated {
   margin-top: 0.4rem;
-  font-size: 0.85rem;
+  font-size: calc(0.85 * var(--text-size));
   color: #9ca3af;
 }
 
@@ -337,11 +358,11 @@ const {
 
 .paper-entry__title {
   margin: 0 0 0.3rem;
-  font-size: 1.05rem;
+  font-size: calc(1.05 * var(--text-size));
 }
 
 .paper-entry__title a {
-  color: #1f4f7b;
+  color: #1f5a5a;
   text-decoration: none;
 }
 
@@ -351,19 +372,19 @@ const {
 
 .paper-entry__meta {
   margin: 0 0 0.35rem;
-  font-size: 0.9rem;
+  font-size: calc(0.9 * var(--text-size));
   color: #6b7280;
 }
 
 .paper-entry__note {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: calc(0.95 * var(--text-size));
   color: #374151;
 }
 
 .paper-entry__update {
   margin: 0;
-  font-size: 0.85rem;
+  font-size: calc(0.85 * var(--text-size));
   color: #9ca3af;
 }
 
@@ -440,7 +461,7 @@ const {
 .rabbit-caption {
   margin-top: 0.4rem;
   text-align: center;
-  font-size: 0.9rem;
+  font-size: calc(0.9 * var(--text-size));
   color: #374151;
 }
 
@@ -457,18 +478,18 @@ const {
   border-radius: 999px;
   border: 1px solid #d1d5db;
   background: #f9fafb;
-  font-size: 0.85rem;
+  font-size: calc(0.85 * var(--text-size));
   cursor: pointer;
 }
 
 .rabbit-choice-button.selected {
-  border-color: #1f4f7b;
-  background: #e0ecff;
+  border-color: #1f5a5a;
+  background: #dcebe9;
   font-weight: 600;
 }
 
 .rabbit-choice-button:hover {
-  background: #edf2ff;
+  background: #ebf3f2;
 }
 
 .rabbit-actions {
@@ -482,9 +503,9 @@ const {
   padding: 0.45rem 1.1rem;
   border-radius: 999px;
   border: none;
-  background: #1f4f7b;
+  background: #1f5a5a;
   color: #ffffff;
-  font-size: 0.9rem;
+  font-size: calc(0.9 * var(--text-size));
   cursor: pointer;
 }
 
@@ -494,13 +515,13 @@ const {
 }
 
 .rabbit-message {
-  font-size: 0.9rem;
+  font-size: calc(0.9 * var(--text-size));
   color: #374151;
 }
 
 .rabbit-results {
   margin-top: 1.2rem;
-  font-size: 0.9rem;
+  font-size: calc(0.9 * var(--text-size));
 }
 
 .rabbit-results ul {

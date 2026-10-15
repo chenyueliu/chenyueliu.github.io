@@ -19,7 +19,7 @@
         <p v-for="(para, i) in jobMarketPaper.abstract" :key="i">{{ para }}</p>
         <p class="meta">Last updated on {{ jobMarketPaper.lastUpdated }}.</p>
 
-        <h3 v-if="workingPapers.length" id="working-papers" class="label">Working Papers</h3>
+        <h3 id="working-papers" class="label">Working Papers</h3>
         <ol v-if="workingPapers.length" class="papers">
           <li v-for="paper in workingPapers" :key="paper.title">
             <a :href="paper.url">{{ paper.title }}</a>
@@ -27,6 +27,16 @@
             <span class="meta">Last updated on {{ paper.lastUpdated }}.</span>
           </li>
         </ol>
+        <p v-else class="meta">Coming soon.</p>
+
+        <h3 id="teaching" class="label">Teaching</h3>
+        <ul v-if="teaching.length" class="papers">
+          <li v-for="course in teaching" :key="course.course + course.term">
+            {{ course.course }}
+            <span class="meta">{{ course.role }}, {{ course.term }}</span>
+          </li>
+        </ul>
+        <p v-else class="meta">Coming soon.</p>
 
         <h3 id="rabbit" class="label">My Rabbit</h3>
         <p>{{ rabbit.prompt }}</p>
@@ -66,14 +76,15 @@
         <ProfileLinks class="sidenav-icons" />
         <a href="#about">About</a>
         <a href="#job-market-paper">Job Market Paper</a>
-        <a v-if="workingPapers.length" href="#working-papers">Working Papers</a>
+        <a href="#working-papers">Working Papers</a>
+        <a href="#teaching">Teaching</a>
       </aside>
     </div>
   </div>
 </template>
 
 <script setup>
-import { profile, bio, jobMarketPaper, workingPapers, rabbit } from '@/content'
+import { profile, bio, jobMarketPaper, workingPapers, teaching, rabbit } from '@/content'
 import { useRabbitVotes } from '@/composables/useRabbitVotes'
 import ProfileLinks from '@/components/ProfileLinks.vue'
 
@@ -146,7 +157,7 @@ p {
 }
 
 a {
-  color: #b5451b;
+  color: #1f5a5a;
   text-decoration: none;
   border-bottom: 1px solid transparent;
   transition: border-color 0.2s;
@@ -180,7 +191,7 @@ a:hover {
 /* Sidebar: sticky nav plus portrait */
 
 .sidenav {
-  background: #f5f2ed;
+  background: #ebf0ef;
   border-radius: 8px;
   padding: 1.5rem;
   position: sticky;
@@ -192,7 +203,7 @@ a:hover {
   max-width: 200px;
   aspect-ratio: 1 / 1;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: 50%;
   display: block;
   margin: 0 auto 1rem;
 }
@@ -269,8 +280,8 @@ a:hover {
 }
 
 .rabbit-choice.selected {
-  color: #b5451b;
-  border-color: #b5451b;
+  color: #1f5a5a;
+  border-color: #1f5a5a;
 }
 
 .rabbit-actions {

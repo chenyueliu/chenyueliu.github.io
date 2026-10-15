@@ -1,27 +1,40 @@
 <template>
-  <div class="profile-links">
-    <a
-      v-for="link in links"
-      :key="link.label"
-      :href="link.href"
-      :title="link.label"
-      :aria-label="link.label"
-      :target="link.external ? '_blank' : null"
-      :rel="link.external ? 'noopener' : null"
-    >
-      <i :class="link.icon" aria-hidden="true"></i>
-    </a>
+  <div>
+    <div class="profile-links">
+      <button
+        type="button"
+        class="email-toggle"
+        :title="profile.email"
+        aria-label="Show email address"
+        :aria-expanded="showEmail"
+        @click="showEmail = !showEmail"
+      >
+        <i class="fas fa-envelope" aria-hidden="true"></i>
+      </button>
+      <a
+        v-for="link in links"
+        :key="link.label"
+        :href="link.href"
+        :title="link.label"
+        :aria-label="link.label"
+        :target="link.external ? '_blank' : null"
+        :rel="link.external ? 'noopener' : null"
+      >
+        <i :class="link.icon" aria-hidden="true"></i>
+      </a>
+    </div>
+    <p v-if="showEmail" class="email-text">{{ profile.email }}</p>
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { profile } from '@/content'
 
+const showEmail = ref(false)
+
 const links = computed(() =>
-  [
-    { label: 'Email', icon: 'fas fa-envelope', href: `mailto:${profile.email}` },
-    { label: 'Google Scholar', icon: 'ai ai-google-scholar', href: profile.scholar },
+  [    { label: 'Google Scholar', icon: 'ai ai-google-scholar', href: profile.scholar },
     { label: 'CV', icon: 'ai ai-cv', href: profile.cv },
     { label: 'LinkedIn', icon: 'fab fa-linkedin', href: profile.linkedin },
   ].map(link => ({ ...link, external: link.href.startsWith('http') })),
@@ -37,7 +50,8 @@ const links = computed(() =>
   line-height: 1;
 }
 
-.profile-links a {
+.profile-links a,
+.email-toggle {
   color: inherit;
   text-decoration: none;
   border-bottom: none;
@@ -45,8 +59,23 @@ const links = computed(() =>
   transition: opacity 0.2s, transform 0.2s;
 }
 
-.profile-links a:hover {
+.email-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.profile-links a:hover,
+.email-toggle:hover {
   opacity: 1;
   transform: translateY(-2px);
+}
+.email-text {
+  margin: 0.6rem 0 0;
+  font-size: 0.85rem;
+  text-align: center;
+  word-break: break-word;
 }
 </style>
