@@ -4,10 +4,9 @@
       <button
         type="button"
         class="email-toggle"
-        :title="profile.email"
-        aria-label="Show email address"
-        :aria-expanded="showEmail"
-        @click="showEmail = !showEmail"
+        title="Email me"
+        aria-label="Email me"
+        @click="openMail"
       >
         <i class="fas fa-envelope" aria-hidden="true"></i>
       </button>
@@ -23,19 +22,23 @@
         <i :class="link.icon" aria-hidden="true"></i>
       </a>
     </div>
-    <p v-if="showEmail" class="email-text">{{ profile.email }}</p>
   </div>
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { profile } from '@/content'
 
-const showEmail = ref(false)
+// Decode the obfuscated address only on click, so it never appears in the page
+function openMail() {
+  const address = profile.email
+    .replace(/\s*\[a t\]\s*/g, '@')
+    .replace(/\s*\[d o t\]\s*/g, '.')
+  window.location.href = `mailto:${address}`
+}
 
 const links = computed(() =>
   [    { label: 'Google Scholar', icon: 'ai ai-google-scholar', href: profile.scholar },
-    { label: 'CV', icon: 'ai ai-cv', href: profile.cv },
     { label: 'LinkedIn', icon: 'fab fa-linkedin', href: profile.linkedin },
   ].map(link => ({ ...link, external: link.href.startsWith('http') })),
 )
@@ -71,11 +74,5 @@ const links = computed(() =>
 .email-toggle:hover {
   opacity: 1;
   transform: translateY(-2px);
-}
-.email-text {
-  margin: 0.6rem 0 0;
-  font-size: 0.85rem;
-  text-align: center;
-  word-break: break-word;
 }
 </style>

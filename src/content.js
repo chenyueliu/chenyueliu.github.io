@@ -8,12 +8,11 @@ export const profile = {
   title: 'Ph.D Candidate in Economics',
   affiliation: 'University of Toronto',
   photo: profilePhoto,
-  // Written out instead of a mailto link so scrapers can't harvest it
+  // Obfuscated so scrapers can't harvest it; ProfileLinks decodes it into a
+  // mailto link only when the envelope is clicked
   email: 'chenyue [d o t] liu [a t] mail [d o t] utoronto [d o t] ca',
   scholar: 'https://scholar.google.com/citations?user=k_pi_QMAAAAJ&hl=en',
   linkedin: 'https://www.linkedin.com/in/chenyuel/',
-  cv: '#',
-  cvLabel: 'Download my curriculum vitae (placeholder link).',
 }
 
 export const bio = [
@@ -23,20 +22,46 @@ export const bio = [
 export const jobMarketPaper = {
   title: 'Non-parametric Identification of Dynamic Treatment Effects: a Graphical Approach to Causality',
   url: 'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6517978',
-  meta: 'Chenyue Liu. 71 pages. Available at SSRN.',
+  meta: 'Chenyue Liu. 70 pages. Available at SSRN.',
   abstract: [
-    'This paper proposes a unified framework to study different types of dynamic treatment effects (DTE), extending the dynamic potential outcome (DPO) framework developed by Torgovitsky (2019). The DPO framework is used to study the causal effect of the immediate preceding past on the present in his paper. In this paper, I first show that DTE such as the causal effect of the distant past on the present can be non-parametrically identified in a DPO framework which does not necessarily assume that the distant past enters the function of the present potential response. I then develop an algorithm leveraging a novel graphical representation of the DPO model. This graph-based algorithm provides a computationally tractable means of scaling the DPO framework beyond binary variables to multi-valued variables, circumventing the curse of dimensionality inherent in dynamic treatment effect studies. An application to the 2008 Survey of Income and Program Participation (SIPP) sheds further light on the long-term scarring effect of unemployment.',
+    'This paper proposes a unified framework to study different types of dynamic treatment effects (DTE), extending the dynamic potential response (DPR) framework in Torgovitsky (2019). The DPR framework is used to study the causal effect of the immediate preceding past on the present in his paper. In this paper, I first show that DTE, such as the causal effect of the distant past on the present, can be non-parametrically identified in a DPR framework which excludes the distant past from directly entering the function of the present potential response. I then develop an algorithm leveraging a novel graphical representation of the DPR model. This graph-based algorithm provides a computationally tractable means of scaling the DPR framework beyond binary variables to multi-valued variables, circumventing the curse of dimensionality inherent in dynamic treatment effect studies. An application to the 2008 Survey of Income and Program Participation (SIPP) sheds further light on the long-term scarring effect of unemployment.',
   ],
-  lastUpdated: 'September 25, 2026',
+  lastUpdated: 'October 19, 2026',
 }
 
-// Each entry: { title, url, meta, lastUpdated }. While empty, the section shows
-// "Coming soon."
-export const workingPapers = []
+// Each entry: { title, url?, meta?, abstract?, lastUpdated? }. While empty, the
+// section shows "Coming soon."
+export const workingPapers = [
+  {
+    title: 'Identifying Local Quantile Treatment Effects With an Imperfect Instrument',
+    abstract: [
+      'This paper explores how to complement an imperfect instrument using time. Full exogeneity of the instrument can be hard to argue in treatment effect studies. When the full exogeneity assumption does not fully hold, a weaker assumption, referred to as selection-on-type, may still be valid. Given an imperfect instrument that only satisfies this weaker assumption, researchers are left with a finite mixture of potential outcome distributions, which poses challenges in identifying the quantile treatment effects for each response type. This paper proposes a method to amplify the identifying power of an imperfect instrument through the crossing point of counterfactual mappings identified from time-homogeneous unobserved heterogeneity of outcomes. The crossing point is estimated using a GMM estimator, with the formulation of objective functions motivated by the quantile regression method. Given the estimates of the crossing point, the potential outcome distribution of each response type can be estimated from the finite mixture. The method proposed by this paper is further illustrated with an application to the Job Training Partnership Act (JTPA) program.',
+    ],
+  },
+]
 
-// Each entry: { course, role, term }, e.g.
-// { course: 'ECO 101: Principles of Microeconomics', role: 'Teaching Assistant', term: 'Fall 2025' }
-export const teaching = []
+// Each entry: { role, courses: [{ course, years }] }. While empty, the section
+// shows "Coming soon."
+export const teaching = [
+  {
+    role: 'Course Instructor, University of Toronto',
+    courses: [
+      { course: 'Data Analysis and Applied Econometrics in Practice', years: '2024' },
+    ],
+  },
+  {
+    role: 'Teaching Assistant, University of Toronto',
+    courses: [
+      { course: 'Econometrics I (PhD)', years: '2025' },
+      { course: 'Machine Learning and Data Mining (MA)', years: '2023' },
+      { course: 'Economic Applications of Machine Learning', years: '2023' },
+      { course: 'Program Evaluation (MPP)', years: '2023' },
+      { course: 'Applied Econometrics II', years: '2024, 2025, 2026' },
+      { course: 'Applied Econometrics I', years: '2022, 2023, 2026' },
+      { course: 'Foundation of Econometrics', years: '2021, 2022, 2023' },
+    ],
+  },
+]
 
 export const blog = {
   intro:
@@ -55,6 +80,6 @@ export const rabbit = {
 export const navLinks = [
   { href: '#about', label: 'Home' },
   { href: '#job-market-paper', label: 'Job Market Paper' },
-  { href: '#working-papers', label: 'Working Papers' },
+  { href: '#working-papers', label: 'Working Paper' },
   { href: '#teaching', label: 'Teaching' },
 ]

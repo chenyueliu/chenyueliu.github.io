@@ -19,24 +19,29 @@
         <p v-for="(para, i) in jobMarketPaper.abstract" :key="i">{{ para }}</p>
         <p class="meta">Last updated on {{ jobMarketPaper.lastUpdated }}.</p>
 
-        <h3 id="working-papers" class="label">Working Papers</h3>
-        <ol v-if="workingPapers.length" class="papers">
-          <li v-for="paper in workingPapers" :key="paper.title">
-            <a :href="paper.url">{{ paper.title }}</a>
-            <span class="meta">{{ paper.meta }}</span>
-            <span class="meta">Last updated on {{ paper.lastUpdated }}.</span>
-          </li>
-        </ol>
-        <p v-else class="meta">Coming soon.</p>
+        <h3 id="working-papers" class="label">Working Paper</h3>
+        <template v-for="paper in workingPapers" :key="paper.title">
+          <p class="entry-title">
+            <a v-if="paper.url" :href="paper.url" target="_blank" rel="noopener">{{ paper.title }}</a>
+            <template v-else>{{ paper.title }}</template>
+          </p>
+          <p v-if="paper.meta" class="meta">{{ paper.meta }}</p>
+          <p v-for="(para, i) in paper.abstract" :key="i">{{ para }}</p>
+          <p v-if="paper.lastUpdated" class="meta">Last updated on {{ paper.lastUpdated }}.</p>
+        </template>
+        <p v-if="!workingPapers.length" class="meta">Coming soon.</p>
 
         <h3 id="teaching" class="label">Teaching</h3>
-        <ul v-if="teaching.length" class="papers">
-          <li v-for="course in teaching" :key="course.course + course.term">
-            {{ course.course }}
-            <span class="meta">{{ course.role }}, {{ course.term }}</span>
-          </li>
-        </ul>
-        <p v-else class="meta">Coming soon.</p>
+        <template v-for="group in teaching" :key="group.role">
+          <p class="entry-title">{{ group.role }}</p>
+          <ul class="teaching-list">
+            <li v-for="item in group.courses" :key="item.course">
+              <span>{{ item.course }}</span>
+              <span class="teaching-years">{{ item.years }}</span>
+            </li>
+          </ul>
+        </template>
+        <p v-if="!teaching.length" class="meta">Coming soon.</p>
 
         <h3 id="rabbit" class="label">My Rabbit</h3>
         <p>{{ rabbit.prompt }}</p>
@@ -76,7 +81,7 @@
         <ProfileLinks class="sidenav-icons" />
         <a href="#about">About</a>
         <a href="#job-market-paper">Job Market Paper</a>
-        <a href="#working-papers">Working Papers</a>
+        <a href="#working-papers">Working Paper</a>
         <a href="#teaching">Teaching</a>
       </aside>
     </div>
@@ -169,6 +174,7 @@ a:hover {
 
 .entry-title {
   font-weight: 600;
+  color: #1f5a5a;
   margin-bottom: 0.25rem;
 }
 
@@ -186,6 +192,24 @@ a:hover {
 .papers li {
   margin: 0.5rem 0;
   line-height: 1.6;
+}
+
+.teaching-list {
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.teaching-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  line-height: 1.7;
+}
+
+.teaching-years {
+  flex-shrink: 0;
+  color: #888;
 }
 
 /* Sidebar: sticky nav plus portrait */

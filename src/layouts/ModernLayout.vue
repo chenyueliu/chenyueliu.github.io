@@ -57,28 +57,41 @@
       </section>
 
       <!-- Working Papers section -->
-      <section id="working-papers" class="section">
-        <h2 class="section-heading">Working Papers</h2>
-
-        <article v-for="paper in workingPapers" :key="paper.title" class="paper-entry">
-          <h3 class="paper-entry__title">
-            <a :href="paper.url">{{ paper.title }}</a>
-          </h3>
-          <p class="paper-entry__meta">{{ paper.meta }}</p>
-          <p class="paper-entry__update">Last updated on {{ paper.lastUpdated }}.</p>
-        </article>
-        <p v-if="!workingPapers.length" class="paper-entry__meta">Coming soon.</p>
+      <section id="working-papers" class="section section--two-col">
+        <div class="section-label-col">
+          <h2 class="section-heading">Working Paper</h2>
+        </div>
+        <div class="section-main-col">
+          <article v-for="paper in workingPapers" :key="paper.title" class="paper-entry">
+            <h3 class="paper-title">
+              <a v-if="paper.url" :href="paper.url" target="_blank" rel="noopener">{{ paper.title }}</a>
+              <template v-else>{{ paper.title }}</template>
+            </h3>
+            <p v-if="paper.meta" class="paper-meta">{{ paper.meta }}</p>
+            <p v-for="(para, i) in paper.abstract" :key="i">{{ para }}</p>
+            <p v-if="paper.lastUpdated" class="last-updated">Last updated on {{ paper.lastUpdated }}.</p>
+          </article>
+          <p v-if="!workingPapers.length" class="paper-meta">Coming soon.</p>
+        </div>
       </section>
 
       <!-- Teaching section -->
-      <section id="teaching" class="section">
-        <h2 class="section-heading">Teaching</h2>
-
-        <article v-for="course in teaching" :key="course.course + course.term" class="paper-entry">
-          <h3 class="paper-entry__title">{{ course.course }}</h3>
-          <p class="paper-entry__meta">{{ course.role }}, {{ course.term }}</p>
-        </article>
-        <p v-if="!teaching.length" class="paper-entry__meta">Coming soon.</p>
+      <section id="teaching" class="section section--two-col">
+        <div class="section-label-col">
+          <h2 class="section-heading">Teaching</h2>
+        </div>
+        <div class="section-main-col">
+          <article v-for="group in teaching" :key="group.role" class="paper-entry">
+            <h3 class="paper-title">{{ group.role }}</h3>
+            <ul class="teaching-list">
+              <li v-for="item in group.courses" :key="item.course">
+                <span>{{ item.course }}</span>
+                <span class="teaching-years">{{ item.years }}</span>
+              </li>
+            </ul>
+          </article>
+          <p v-if="!teaching.length" class="paper-meta">Coming soon.</p>
+        </div>
       </section>
 
       <!-- Rabbit Section -->
@@ -327,6 +340,7 @@ button {
   margin: 0 0 0.4rem;
   font-size: calc(1.2 * var(--text-size));
   font-weight: 600;
+  color: #1f5a5a;
 }
 
 .paper-title a {
@@ -348,6 +362,26 @@ button {
   margin-top: 0.4rem;
   font-size: calc(0.85 * var(--text-size));
   color: #9ca3af;
+}
+
+/* Teaching: course / year rows under each role */
+
+.teaching-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.teaching-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  line-height: 1.7;
+}
+
+.teaching-years {
+  flex-shrink: 0;
+  color: #6b7280;
 }
 
 /* Paper / project entry styling used for many sections */
